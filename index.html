@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Atelier | Refugio & Cafetería Gatuna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary-dark: #5C4033; 
+            --color-primary-light: #F3EDE2; 
+            --color-beige-card: #FAF6EE; 
+            --color-accent-pink: #E8A4B8; 
+            --color-accent-pink-hover: #D68FA4; 
+            --color-text-main: #4A3B32; 
+            --color-text-muted: #7A685D; 
+            --color-white: #FFFFFF;
+            --transition-smooth: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--color-primary-light); color: var(--color-text-main); line-height: 1.6; overflow-x: hidden; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: var(--color-white); box-shadow: 0 2px 15px rgba(92, 64, 51, 0.08); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--color-primary-dark); font-weight: 700; font-size: 1.4rem; }
+        .logo span { color: var(--color-accent-pink); }
+        .nav-menu { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .nav-menu a { text-decoration: none; color: var(--color-text-main); font-weight: 500; font-size: 0.95rem; transition: var(--transition-smooth); }
+        .nav-menu a:hover { color: var(--color-accent-pink); }
+        .btn-nav { background-color: var(--color-accent-pink); color: var(--color-white) !important; padding: 8px 18px; border-radius: 20px; }
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.8rem; color: var(--color-primary-dark); cursor: pointer; }
+        .hero { padding: 90px 0; background: linear-gradient(135deg, var(--color-primary-light) 0%, #EFE5D5 100%); text-align: center; }
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 2.8rem; color: var(--color-primary-dark); margin-bottom: 20px; font-weight: 700; line-height: 1.2; }
+        .hero p { font-size: 1.15rem; color: var(--color-text-muted); margin-bottom: 30px; }
+        .hero-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .btn-primary, .btn-secondary, .btn-card { display: inline-block; padding: 12px 28px; border-radius: 30px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; font-size: 1rem; text-align: center; }
+        .btn-primary { background-color: var(--color-primary-dark); color: var(--color-white); }
+        .btn-secondary { background-color: var(--color-accent-pink); color: var(--color-white); }
+        .btn-card { background-color: var(--color-accent-pink); color: var(--color-white); width: 100%; padding: 10px; font-size: 0.95rem; margin-top: 15px; border-radius: 10px; }
+        .about { padding: 70px 0; background-color: var(--color-white); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .about-text h2 { font-size: 2.2rem; color: var(--color-primary-dark); margin-bottom: 20px; }
+        .about-text p { color: var(--color-text-muted); margin-bottom: 15px; }
+        .about-image-container { border-radius: 20px; overflow: hidden; height: 380px; box-shadow: 0 8px 25px rgba(92, 64, 51, 0.15); }
+        .about-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .services { padding: 70px 0; background-color: var(--color-primary-light); }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.3rem; color: var(--color-primary-dark); margin-bottom: 10px; }
+        .section-title p { color: var(--color-text-muted); font-size: 1.05rem; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card { background-color: var(--color-beige-card); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border-top: 4px solid var(--color-accent-pink); box-shadow: 0 4px 15px rgba(92, 64, 51, 0.05); }
+        .card-img { width: 100%; height: 220px; object-fit: cover; }
+        .card-body { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-body h3 { font-size: 1.3rem; color: var(--color-primary-dark); margin-bottom: 12px; }
+        .card-body p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+        .item-list { list-style: none; margin-top: auto; border-top: 1px dashed #D6CCC2; padding-top: 12px; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: var(--color-text-main); margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px solid rgba(214, 204, 194, 0.3); }
+        .item-price { font-weight: 600; color: var(--color-primary-dark); background-color: rgba(232, 164, 184, 0.2); padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; }
+        .advantages { padding: 70px 0; background-color: var(--color-white); }
+        .advantages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .advantage-item { text-align: center; padding: 25px; background-color: var(--color-primary-light); border-radius: 16px; }
+        .advantage-icon { width: 70px; height: 70px; background-color: var(--color-white); color: var(--color-primary-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 20px; }
+        .advantage-item h3 { font-size: 1.2rem; color: var(--color-primary-dark); margin-bottom: 10px; }
+        .advantage-item p { color: var(--color-text-muted); font-size: 0.9rem; }
+        .faq { padding: 70px 0; background-color: var(--color-primary-light); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background-color: var(--color-white); margin-bottom: 15px; border-radius: 12px; overflow: hidden; border: 1px solid #EAE0D0; }
+        .faq-question { padding: 20px 25px; font-weight: 600; color: var(--color-primary-dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '+'; font-size: 1.4rem; color: var(--color-accent-pink); }
+        .faq-item.active .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 25px; color: var(--color-text-muted); font-size: 0.95rem; }
+        .faq-item.active .faq-answer { max-height: 250px; padding-bottom: 20px; }
+        .contact { padding: 70px 0; background-color: var(--color-white); }
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background-color: var(--color-primary-light); border-radius: 20px; overflow: hidden; }
+        .contact-info { padding: 50px; background-color: var(--color-primary-dark); color: var(--color-white); }
+        .contact-info h2 { font-size: 2rem; margin-bottom: 20px; }
+        .contact-info p { margin-bottom: 25px; opacity: 0.9; }
+        .info-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; font-size: 0.95rem; }
+        .contact-form-container { padding: 50px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 500; color: var(--color-text-main); margin-bottom: 8px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 15px; border: 1px solid #D6CCC2; border-radius: 8px; font-family: 'Poppins', sans-serif; background-color: var(--color-white); color: var(--color-text-main); outline: none; }
+        .form-notice { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 15px; font-style: italic; }
+        footer { background-color: #3E2723; color: var(--color-white); text-align: center; padding: 30px 0; font-size: 0.9rem; }
+        footer p { opacity: 0.8; }
+        @media (max-width: 900px) { .about-grid, .contact-wrapper { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-menu { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--color-white); padding: 20px 0; text-align: center; gap: 15px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+            .nav-menu.active { display: flex; }
+            .hero h1 { font-size: 2rem; }
+            .contact-info, .contact-form-container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">🐾 Cat <span>Atelier</span></a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
+                <li><a href="#nosotros" onclick="closeMenu()">Nosotros</a></li>
+                <li><a href="#servicios" onclick="closeMenu()">Menú y Pedidos</a></li>
+                <li><a href="#ventajas" onclick="closeMenu()">Ventajas</a></li>
+                <li><a href="#faq" onclick="closeMenu()">FAQ</a></li>
+                <li><a href="#contacto" class="btn-nav" onclick="closeMenu()">Hacer Pedido</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container hero-content">
+                <h1>El punto de encuentro entre el café artesanal y el amor felino</h1>
+                <p>Disfruta de deliciosas bebidas, postres temáticos por unidad y un espacio de relajación y terapia con gatitos rescatados.</p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn-primary">Ver Menú y Precios</a>
+                    <a href="#contacto" class="btn-secondary">Hacer un Pedido / Adopción</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="nosotros" class="about">
+            <div class="container about-grid">
+                <div class="about-text">
+                    <h2>Un refugio cálido y un café inolvidable</h2>
+                    <p>En <strong>Cat Atelier</strong> combinamos la pasión por la buena repostería y el café de especialidad con un profundo compromiso hacia el bienestar animal.</p>
+                    <p>Nuestro espacio está diseñado para adolescentes, adultos y cualquier persona que necesite un respiro del estrés diario a través de la maravillosa compañía y terapia con gatitos.</p>
+                </div>
+                <div class="about-image-container">
+                    <img src="https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?auto=format&fit=crop&w=800&q=80" alt="Gatitos rescatados">
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Nuestro Menú y Catálogo por Unidad</h2>
+                    <p>Selecciona tu producto o servicio favorito y realiza tu pedido fácilmente.</p>
+                </div>
+                <div class="cards-grid">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80" alt="Café y Postres" class="card-img">
+                        <div class="card-body">
+                            <h3>Café y Postres Gatunos</h3>
+                            <p>Disfruta por unidad de nuestras creaciones artesanales.</p>
+                            <ul class="item-list">
+                                <li class="item-row"><span>☕ Espresso / Latte Art (1 Unidad)</span><span class="item-price">$7.000</span></li>
+                                <li class="item-row"><span>🧁 Cupcake Orejitas de Gato (1 Unidad)</span><span class="item-price">$8.500</span></li>
+                                <li class="item-row"><span>🍪 Galleta Decorada Neko (1 Unidad)</span><span class="item-price">$5.000</span></li>
+                                <li class="item-row"><span>🍰 Porción Torta de Chocolate Minina</span><span class="item-price">$11.000</span></li>
+                            </ul>
+                            <button class="btn-card" onclick="seleccionarProducto('Café y Repostería Temática')">Hacer Pedido de este Menú</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80" alt="Comida Salada" class="card-img">
+                        <div class="card-body">
+                            <h3>Comida Salada Temática</h3>
+                            <p>Opciones saladas servidas con formas felinas.</p>
+                            <ul class="item-list">
+                                <li class="item-row"><span>🥪 Sándwich Artesanal Gato (1 Unidad)</span><span class="item-price">$14.000</span></li>
+                                <li class="item-row"><span>🥑 Tostada de Aguacate "Paw-fect"</span><span class="item-price">$12.500</span></li>
+                                <li class="item-row"><span>🍙 Onigiri Estilo Neko (1 Unidad)</span><span class="item-price">$9.000</span></li>
+                                <li class="item-row"><span>🧀 Snack Salado de Queso (Porción)</span><span class="item-price">$8.000</span></li>
+                            </ul>
+                            <button class="btn-card" onclick="seleccionarProducto('Comida Salada Temática')">Hacer Pedido de Comida Salada</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80" alt="Terapia y Adopción" class="card-img">
+                        <div class="card-body">
+                            <h3>Terapia Gatuna y Adopción</h3>
+                            <p>Actividades guiadas y procesos de adopción responsable.</p>
+                            <ul class="item-list">
+                                <li class="item-row"><span>🧶 Sesión de Gatoterapia (1 Hora)</span><span class="item-price">$15.000</span></li>
+                                <li class="item-row"><span>🎨 Taller Creativo / Manualidades</span><span class="item-price">$25.000</span></li>
+                                <li class="item-row"><span>🐾 Kit de Bienvenida para Adoptantes</span><span class="item-price">$50.000</span></li>
+                                <li class="item-row"><span>🏠 Proceso de Adopción Responsable</span><span class="item-price">Gratis</span></li>
+                            </ul>
+                            <button class="btn-card" onclick="seleccionarProducto('Sesión de Terapia o Adopción')">Reservar Cupo / Solicitar Adopción</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ventajas" class="advantages">
+            <div class="container">
+                <div class="section-title">
+                    <h2>¿Por qué elegir Cat Atelier?</h2>
+                    <p>Diferenciales que hacen de nuestra experiencia algo único.</p>
+                </div>
+                <div class="advantages-grid">
+                    <div class="advantage-item">
+                        <div class="advantage-icon">🌿</div>
+                        <h3>Ambiente Acogedor</h3>
+                        <p>Diseño estético en tonos cálidos inspirado en la paz y el confort.</p>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="advantage-icon">🧼</div>
+                        <h3>Higiene Estricta</h3>
+                        <p>Áreas de cafetería y zonas felinas totalmente separadas y seguras.</p>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="advantage-icon">🤝</div>
+                        <h3>Impacto Social</h3>
+                        <p>Cada consumo apoya el rescate y cuidado veterinario de más gatitos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Preguntas Frecuentes</h2>
+                    <p>Resolvemos tus dudas sobre nuestra cafetería y refugio.</p>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">¿Necesito reservar para visitar a los gatitos?</div>
+                        <div class="faq-answer">No es obligatorio, pero los fines de semana se llena rápido. Te recomendamos reservar con anticipación.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">¿Cómo funciona el proceso de adopción?</div>
+                        <div class="faq-answer">Incluye una entrevista corta para verificar condiciones en casa y asegurar compatibilidad.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">¿Los alimentos se preparan cerca de los gatos?</div>
+                        <div class="faq-answer">No. La cocina y la zona de alimentos están completamente separadas del salón felino.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">¿Menores de edad pueden ingresar solos?</div>
+                        <div class="faq-answer">Mayores de 14 años con autorización escrita; menores acompañados de un adulto.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">¿Puedo traer a mi propio gato?</div>
+                        <div class="faq-answer">Por seguridad y tranquilidad de los residentes, no está permitido el ingreso de mascotas externas.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h2>¡Haz tu Pedido o Reserva!</h2>
+                        <p>Completa el formulario para realizar un pedido, apartar mesa o solicitar información.</p>
+                        <div class="info-item"><span>📍</span><div><strong>Dirección:</strong> Calle Ficticia #123</div></div>
+                        <div class="info-item"><span>🕒</span><div><strong>Horarios:</strong> Mar a Dom: 10:00 AM - 8:00 PM</div></div>
+                        <div class="info-item"><span>📞</span><div><strong>Teléfono:</strong> +00 (123) 456-7890</div></div>
+                        <div class="info-item"><span>✉️</span><div><strong>Correo:</strong> contacto@catatelier.demo</div></div>
+                    </div>
+                    <div class="contact-form-container">
+                        <form onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito!');">
+                            <div class="form-group">
+                                <label for="nombre">Nombre completo</label>
+                                <input type="text" id="nombre" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo electrónico</label>
+                                <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="motivo">Motivo de Interés</label>
+                                <select id="motivo">
+                                    <option value="pedido">Pedido de productos</option>
+                                    <option value="reserva">Reserva de mesa / terapia</option>
+                                    <option value="adopcion">Proceso de Adopción</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mensaje">Detalles de tu pedido</label>
+                                <textarea id="mensaje" rows="4" placeholder="Indica cantidades y productos..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-secondary" style="width: 100%;">Enviar Pedido / Mensaje</button>
+                            <p class="form-notice">Formulario demostrativo sin cobros reales.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Cat Atelier. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
+        function closeMenu() { document.getElementById('navMenu').classList.remove('active'); }
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            document.querySelectorAll('.faq-item').forEach(i => { if (i !== item) i.classList.remove('active'); });
+            item.classList.toggle('active');
+        }
+        function seleccionarProducto(nombreCategoria) {
+            const textarea = document.getElementById('mensaje');
+            textarea.value = `Hola, me interesa encargar: ${nombreCategoria}. Cantidad de unidades: `;
+            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+            textarea.focus();
+        }
+    </script>
+</body>
+</html>
